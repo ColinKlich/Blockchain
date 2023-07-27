@@ -183,7 +183,7 @@ describe('Wallet', () => {
             blockchain.addBlock({ data: [nextBlockTransaction] });
           });
 
-          it('includes the output amoutns in the returned balance', () => {
+          it('includes the output amounts in the returned balance', () => {
             expect(
               Wallet.calculateBalance({
                 chain: blockchain.chain,
