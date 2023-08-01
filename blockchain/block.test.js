@@ -1,7 +1,7 @@
 const hexToBinary = require('hex-to-binary');
 const Block = require('./block');
 const { GENESIS_DATA, MINE_RATE } = require('../config');
-const {cryptoHash} = require('../util');
+const { cryptoHash } = require('../util');
 
 describe('Block', () => {
   const timestamp = 2000;
@@ -12,7 +12,7 @@ describe('Block', () => {
   const difficulty = 1;
   const block = new Block({ timestamp, lastHash, hash, data, nonce, difficulty });
 
-  it('has a timestamp, lastHash, hash, and data property', () => {
+  it('has a timestamp, lastHash, hash, and a data property', () => {
     expect(block.timestamp).toEqual(timestamp);
     expect(block.lastHash).toEqual(lastHash);
     expect(block.hash).toEqual(hash);
@@ -33,7 +33,7 @@ describe('Block', () => {
     });
   });
 
-  describe('mineBlock()', () => {
+  describe('mineBlock', () => {
     const lastBlock = Block.genesis();
     const data = 'mined data';
     const minedBlock = Block.mineBlock({ lastBlock, data });
@@ -82,13 +82,15 @@ describe('Block', () => {
   describe('adjustDifficulty()', () => {
     it('raises the difficulty for a quickly mined block', () => {
       expect(Block.adjustDifficulty({
-        originalBlock: block, timestamp: block.timestamp + MINE_RATE - 100
+        originalBlock: block,
+        timestamp: block.timestamp + MINE_RATE - 100
       })).toEqual(block.difficulty+1);
     });
 
     it('lowers the difficulty for a slowly mined block', () => {
       expect(Block.adjustDifficulty({
-        originalBlock: block, timestamp: block.timestamp + MINE_RATE + 100
+        originalBlock: block,
+        timestamp: block.timestamp + MINE_RATE + 100
       })).toEqual(block.difficulty-1);
     });
 
